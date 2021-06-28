@@ -58,7 +58,7 @@ plt.xticks([0, 1], ["Normal", "Fraud"])
 plt.show()
 ```
 
-![Count plot for transactions](../assets/images/khanh_imgs/count_transaction.png)
+![Count plot for transactions](../assets/images/khanh_imgs/count_transaction.png){: .mx-auto.d-block :}
 
 As you can see, this dataset presents transactions occurred in two days, we have 492 frauts out of 284,807 transactions. This dataset highly unbalanced, the positive class (fraut) stand for 0.172% of all transactions. Given the class imbalance ratio, confusion matrix accurancy is not meaningfull for unbalanced classification.
 
@@ -120,7 +120,7 @@ evaluate_result(y_test, y_pred)
 # f1 score: 0.6610878661087867
 ```
 
-![Confuse matrix of Random Forest classifier](../assets/images/khanh_imgs/random-forest.png)
+![Confuse matrix of Random Forest classifier](../assets/images/khanh_imgs/random-forest.png){: .mx-auto.d-block :}
 
 - **Logistic Regession**
 
@@ -138,7 +138,7 @@ evaluate_result(y_test, lr_y_pred)
 # f1 score: 0.7044534412955464
 ```
 
-![Confuse matrix of Logistic Regression classifier](../assets/images/khanh_imgs/logistic.png)
+![Confuse matrix of Logistic Regression classifier](../assets/images/khanh_imgs/logistic.png){: .mx-auto.d-block :}
 
 #### Test imbalanced dataset after resampling using SMOTE technique.
 
@@ -164,7 +164,7 @@ plt.xticks([0, 1], ["Normal", "Fraud"])
 plt.show()
 ```
 
-![Fraudulent transaction after resampling](../assets/images/khanh_imgs/resampling.png)
+![Fraudulent transaction after resampling](../assets/images/khanh_imgs/resampling.png){: .mx-auto.d-block :}
 
 ##### Test after resampling
 
@@ -181,7 +181,7 @@ evaluate_result(y2_test, y2_pred)
 # f1 score: 0.9554567325216885
 ```
 
-![Confuse matrix of Random Forest classifier after being resampled](../assets/images/khanh_imgs/random-forest-resampling.png)
+![Confuse matrix of Random Forest classifier after being resampled](../assets/images/khanh_imgs/random-forest-resampling.png){: .mx-auto.d-block :}
 
 ```python
 # Logistic Regression
@@ -197,7 +197,7 @@ evaluate_result(y2_test, lr_y2_pred)
 
 **The precision, recall, F1-score scores were improved and achieved high scores(>0.9). That means after resampling to  handle imbalanced dataset helps the models to predicts better, which can be applied to real problem.**
 
-![Confuse matrix of Logistic Regression classifier after being resampled](../assets/images/khanh_imgs/logistic-resampling.png)
+![Confuse matrix of Logistic Regression classifier after being resampled](../assets/images/khanh_imgs/logistic-resampling.png){: .mx-auto.d-block :}
 
 #### Conclusion
 
