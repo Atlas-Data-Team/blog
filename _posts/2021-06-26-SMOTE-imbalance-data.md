@@ -195,7 +195,8 @@ evaluate_result(y2_test, lr_y2_pred)
 # f1 score: 0.957765780240292
 ```
 
-**The precision, recall, F1-score scores were improved and achieved high scores(>0.9). That means after resampling to  handle imbalanced dataset helps the models to predicts better, which can be applied to real problem.**
+>The precision, recall, F1-score scores were improved and achieved high scores(>0.9). That means after resampling to  handle imbalanced dataset helps the models to predicts better, which can be applied to real problem.
+{: .text-justify}
 
 ![Confuse matrix of Logistic Regression classifier after being resampled](../assets/images/khanh_imgs/logistic-resampling.png){: .mx-auto.d-block :}
 
@@ -204,3 +205,4 @@ evaluate_result(y2_test, lr_y2_pred)
 [You can view full code here](https://github.com/Atlas-Data-Team/blog/blob/khanh-dev/code/smote.py)
 
 I've covered some of the main methods of dealing with data imbalances. In the process of building models, especially binary classification models (2 classes), you will often encounter this phenomenon. Data imbalance will lead to less accurate predictive models and most of the forecast results are biased towards the majority label. In that case, metrics like **accuracy** are also not a good metric to evaluate the model. Through this tutorial, you will have more effective methods to deal with data imbalance situations. Depending on the problem and the data set, you can choose one or combine several methods to improve model performance.
+{: .text-justify}
