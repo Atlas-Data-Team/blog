@@ -6,6 +6,7 @@ categories: [ Big Data, Machine Learning ]
 image: assets/images/3.jpg
 beforetoc: "In this series, I will show you how to build from scratch a pipeline to ingest, clean, process and run machine learning models using Airflow for tasks scheduling, Spark for distributed processing, and Kubernetes for containers orchestrating."
 toc: true
+comments: true
 ---
 
 #### What can we use time series predictive pipeline for?

@@ -6,6 +6,7 @@ categories: [ Machine Learning ]
 image: assets/images/khanh_imgs/imbalancedata.png
 beforetoc: "In this post, I will introduce some techniques to deal with imbalanced data because the datasets are often extremely imbalanced."
 toc: true
+comments: true
 ---
 
 #### Imbalanced datasets problem.
