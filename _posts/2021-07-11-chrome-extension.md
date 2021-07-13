@@ -115,6 +115,33 @@ Now that we've written manifest file, we can figure out what our chrome extensio
 
 ### Running script
 
+A content script is “a JavaScript file that runs in the context of web pages.” This means that a content script can interact with web pages that the browser visits. Not every JavaScript file in a Chrome extension can do this; we’ll see why later.
+
+We have a **content script** file:
+
+```javascript
+alert("Hello, I come from content script file");
+```
+
+To inject the script, you need to tell **manifest file** about it.
+
+```javascript
+"content_scripts": [{
+    "matches": ["<all_urls>"],
+    "css": ["content.css"],
+    "js": ["content.js"]
+}],
+```
+
+This tells Chrome to inject **content.js** into every page we visit using _"<all_urls>"_. If you only want to inject script on only some pages, you need specific the pattern of pages. Example: 
+- ["https://mail.google.com/*", "http://mail.google.com/*"] injects our script into HTTPS and HTTP Gmail. If we have / at the end instead of /*, it matches the URLs exactly, and so would only inject into https://mail.google.com/, not https://mail.google.com/mail/u/0/#inbox. Usually that isn’t what you want.
+- http://*/* will match any http URL, but no other scheme. For example, this won’t inject your script into https sites.
+
+Reload Chrome Extension and view your result.
+
+
 
 ### Uploading to the Chrome Web Store
+
+Now, we get to head over to [Chrome Web Store](https://accounts.google.com/ServiceLogin/webreauth?service=chromewebstore&hl=vi&authuser=0&continue=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdevconsole%2F&passive=180&flowName=GlifWebSignIn&flowEntry=ServiceLogin) to submit our extension. Firstly, you need to authorize, 
 
