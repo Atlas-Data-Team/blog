@@ -47,19 +47,19 @@ The first step is creating a **manifest.json** file. This serves a similar purpo
 
 Some fields, including **manifest_version, name, version, description** are required. The **permissions** depend on what your extension needs to do.
 
-The **content_script.js** sections
+The **content_script.js** sections: Content scripts are files that run in the context of web pages. By using the standard Document Object Model (DOM), they are able to read details of the web pages the browser visits, make changes to them, and pass information to their parent extension. We will discuss about it later.
 
 ```javascript
 "content_scripts": [
    {
      "matches": ["<all_urls>"],
-     "css": ["background.css"],
-     "js": ["background.js"]
+     "css": ["content.css"],
+     "js": ["content.js"]
    }
  ]
  ```
  
- The **browser_action**
+ The **browser_action**: Use browser actions to put icons in the main Google Chrome toolbar, to the right of the address bar. In addition to its icon, a browser action can have a tooltip, a badge, and a popup.
 
  ```javascript
 "browser_action": {
@@ -72,18 +72,17 @@ The **content_script.js** sections
  }
  ```
 
-
 ### Debugging
 
 **manifest,CSS and javascript** file are already, next step we open [chorome extension](chrome://extensions/) from the browser's address bar and enable developer mode. Click **Load unpackage** and navigate the folder contains own Chrome extension.
 
 The Chrome extension needs to be reloaded when it is updated. Now, we have a litte icon **refresh**. If the extension has any errors came up, it also will a small **error** button, you can click that buttton it shows you the stack trace and more information here as well.
 
-![Chrome extension Load unpackage]()
+![Chrome extension Load unpackage](../assets/images/khanh_imgs/chrome-extension/debug.png)
 
 ### Popup page
 
-Now that we've written manifest file, we can figure out what our chrome extension should be display by using **pop up functionality**. How to do that? Very easy, in **browser action** in the manifest file, you need define **default_popup and default_icon**. We have a simple HTMl file here.
+Now that we've written manifest file, we can figure out what our chrome extension should be displayed by using **pop up functionality**. How to do that? Very easy, in **browser action** in the manifest file, you need to define **default_popup and default_icon**. We have a simple HTMl file here.
 
 ```html
 <!DOCTYPE html>
@@ -110,8 +109,14 @@ Now that we've written manifest file, we can figure out what our chrome extensio
 </html>
 ```
 
+![A popup is below the icon](../assets/images/khanh_imgs/chrome-extension/popup.png)
 
 
+### Load your Chrome Extension
+
+To load your extension in Chrome, open up [Here](chrome://extensions/) in your browser and click **Developer mode** in the top right. Now click **Load unpacked extension…** and select the extension’s directory. You should now see your extension in the list.
+
+When you change or add code in your extension, just come back to this page and reload the page. Chrome will reload your extension.
 
 ### Running script
 
@@ -143,5 +148,5 @@ Reload Chrome Extension and view your result.
 
 ### Uploading to the Chrome Web Store
 
-Now, we get to head over to [Chrome Web Store](https://accounts.google.com/ServiceLogin/webreauth?service=chromewebstore&hl=vi&authuser=0&continue=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdevconsole%2F&passive=180&flowName=GlifWebSignIn&flowEntry=ServiceLogin) to submit our extension. Firstly, you need to authorize, 
+Now, we get to head over to [Chrome Web Store](https://accounts.google.com/ServiceLogin/webreauth?service=chromewebstore&hl=vi&authuser=0&continue=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdevconsole%2F&passive=180&flowName=GlifWebSignIn&flowEntry=ServiceLogin) to submit our extension. 
 
