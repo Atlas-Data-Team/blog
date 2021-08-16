@@ -108,11 +108,6 @@ I use the image **tensorflow/tensorflow:latest-gpu**, and then install python de
 Now that we have looked at the Dockerfile.worker, we will download and build the image in our machine.
 
 
-
-```python
-
-```
-
 ### Pushing an Image to the Repository
 Before publishing the Image to ECR repository, make sure you have Docker installed in your computer and a project with a _Dockerfile_ that's already to be built and push to ECR.
 
@@ -303,7 +298,7 @@ End then, you need copy this command and move EC2 instance, run that command
 
 
 
-## Set up ECS Fargate for Master node
+## Setting up ECS Fargate for Master node
 
 ### Dockerfile.manager
 ```python
@@ -398,6 +393,62 @@ functions:
 
 ```
 
+#### Custom settings
+
+You need the following settings that are defined in **provider** section
+```python
+provider:
+  name: aws
+  runtime: python3.7
+  profile: <your_aws_profile>
+  environment:
+    ACCESS_ID: <your_access_id>
+    ACCESS_KEY: <your_access_key>
+    FARGATE_CLUSTER: aws-async
+    FARGATE_TASK_DEF_NAME: <your_task_definition>
+    FARGATE_SUBNET_ID: <your_subnet_id>
+    REGION: <your_region>
+    CONTAINER_NAME: <your_container_name>
+    INSTANCE_ID: <your_g4_instance_id>
+    QUEUE_URL: <your_queue_url>
+```
+
+#### IAM Roles
+
+To allow lambda functions in our serverless app to do certain actions, we need to set permissions for them
+```python
+iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - execute-api:Invoke
+    Resource: "arn:aws:execute-api:*:*:*"
+  - Effect: Allow
+    Action:
+      - "ec2:*"
+    Resource: "*"
+```
+
+The above IAM settings in the **serverless.yml** file allows the Lambda function to run ECS task definition, and allows API Gateway call the Lambda function
+
+
+#### API Gateway
+```python
+functions:
+  trigger_manager_ecs:
+    handler: handler.trigger_manager_ecs
+    timeout: 900
+    vpc:
+    events:
+      - http:
+          path: /
+          method: get
+          request:
+            parameters:
+              querystrings:
+                request_id: true
+```
+
+
 
 ### Deploy serverless.yml file
 
@@ -424,8 +475,39 @@ Pass your queue service name
 ![Create a SQS queue](../assets/images/khanh_imgs/aws/ec2/create_sqs.png)
 
 
-## Conclusion
+## Task definition
 
+![Create a task definition](../assets/images/khanh_imgs/aws/ec2/task-def.png)
+
+In the previous section, we lauched an ECS Anywhere which tied an EC2 g4dn.xlarge. We must create a task definition with **external type**
+![Select launch type compatibility](../assets/images/khanh_imgs/aws/ec2/task-external.png)
+
+
+
+![Select launch type compatibility](../assets/images/khanh_imgs/aws/ec2/conf1.png)
+
+![Select launch type compatibility](../assets/images/khanh_imgs/aws/ec2/conf2.png)
+
+
+![Add container](../assets/images/khanh_imgs/aws/ec2/conf3.png)
+- Container name: The name of a container. Up to 255 letters (uppercase and lowercase), numbers, hyphens, and underscores are allowed.
+- Image: The image used to start your container which you defined in the ECR section
+- Memory Limits (MiB): If you specify a hard limit (memory), your container will be killed if it attempts to exceed that limit. If you specify a soft limit (memoryReservation), ECS reserves that amount of memory for your container; however, the container can request up to the hard limit (if specified) or all of the available memory on the container instance, whichever is reached first. If you specify both, the hard limit must be greater than the soft limit.
+- Log configuration: To keep track your container logs in CloudWatch
+
+![Add container](../assets/images/khanh_imgs/aws/ec2/conf4.png)
+
+
+## Conclusion
+We looked at a possible solution to execute long-running processes in ECS using Fargate for master node, ECS anywhere for Worker node but with tight integration with AWS Lambda. We built a Docker container to encapsulate the long-running process.
+
+We set up ECS using Fargate and created an ECS task to execute our container. We tested the functionality of sentiments a text file. Even better, we built and deployed a serverless application from scratch, written with the Serverless Framework.
+
+I know the article is a long one , but I wanted to capture what it takes to build such an application end-to-end.
+
+I'd love to hear from you about other use cases you solved with the reference app we built, or any you have in mind.
+
+Any questions or feedback, please leave it below!
 
 
 
